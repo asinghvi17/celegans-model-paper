@@ -167,7 +167,7 @@ The equations, when modified for synaptic connections, look like this:
 
 \section{Simulation}
 
-The simulation was performed in Python, using the standard SciPy ODE solvers. % TODO list solver here
+The simulation was performed in Python, using the standard SciPy ODE solvers, which wrap LSODA. % TODO list solver here
 
 \subsection{Methods}
 
@@ -207,16 +207,9 @@ Our modifications to Keener's proposed circuit are mainly concerned with diffusi
     \label{fig: neuron_unit}
 \end{figure}
 
-- Nagumo circuit, disadvantages
+However, this is only one neuron.  In order to implement a full central pattern generator, we implemented diffusive coupling mechanisms.  These mechanisms are shown in \Fref{fig: coupling_ckt}.  We implemented a positive diffusion coefficient by passing the voltage through a resistor (to simulate $D$), and then a diode (to simulate $\mathrm{max}(\Delta v, 0)$).  The negative diffusion coefficient was implemented by using an inverting amplifier with a small gain, and then passing through a diode.
 
-- Keener improved, op amps, why is that good - scalability, etc. Piecewise (N-shaped) linear approximation.
-
-- Our modifications - diffusion, coupling mechanism.  Some mention of mathematics involved
-
-- Figures: circuits, circuit nullclines,
-
-\citet{nagumo1962} proposed a circuit which could simulate the system which FitzHugh proposed.  A depiction is included in \Fref{fig: nagumo_ckt}.
-
+\subsection{Comparison of analog and simulation}
 
 To compare the analog implementation with our simulated model, we will focus on the timeseries output of the neurons, and not on the end worm.  Include the relevant figure here - you can see clearly that the effect is the same.  There are some differences in the waveform because of the different activation function in the circuit (linear interpolation).
 
