@@ -187,9 +187,25 @@ While the angle which a worm crawling on agar subtends tends to be oblique, as t
 
 \citet{nagumo1962} proposed a circuit to simulate a FitzHugh-Nagumo neuron, shown in \Fref{fig: nagumo_ckt}.  It used a tunnel diode to achieve a cubic-like activation function, and an inductor to integrate.  However, this approach presents several complications.  Tunnel diodes are rare, and rather expensive; inductors cannot be used in proximity because of mutual inductance effects, and are quite large.
 
+\begin{figure}[h!]
+    \centering
+    \inputtikz{figures/nagumo/nagumo}
+    \caption{The original circuit proposed by \citet{nagumo1962}.  Note the use of inductors for integration, and the tunnel diode to supply a cubic-like V-I curve.  Our circuit, based off \citet{keener1983}, is arranged in the same layout, to make the similarities and differences more explicit.}
+    \label{fig: nagumo_ckt}
+\end{figure}
+
 \citet{keener1983} proposed a modified Nagumo circuit which used operational amplifiers ("op-amps") to achieve nonlinearity and create a piecewise linear function.  He used an op-amp under saturation to create a piecewise linear approximation to the cubic, which is sufficient to drive the FHN oscillator.  He also used an op-amp integrator to simulate an inductor.
 
+As a result of the piecewise linear approximation to the cubic, the nullclines of the circuit system differ slightly from the original FitzHugh-Nagumo nullclines.  However, in experiments this did not cause any change in the dynamics of the individual neuron, or many connected together - the nullclines are sufficiently similar that the dynamics are effectively the same.
+
 Our modifications to Keener's proposed circuit are mainly concerned with diffusive coupling between neurons.  If each individual circuit is thought of as a single neuron, then we implemented diffusive coupling methods between those neurons.  We also found that you don't need separate power supplies, and you can get finer control by adjusting the bias voltage and input through a separate mechanism.
+
+\begin{figure}[h!]
+    \centering
+    \inputtikz{figures/neuron_unit/neuron_unit}
+    \caption{The circuit we created, based of \citet{keener1983}.  Note the use of operational amplifiers in place of the inductor and tunnel diode; though this circuit looks more complex, in practice it is quite simple to implement.}
+    \label{fig: nagumo_ckt}
+\end{figure}
 
 - Nagumo circuit, disadvantages
 
