@@ -116,9 +116,9 @@ The FHN model consists of two dynamical variables; a fast activator variable $v$
 
 % The sodium channel has a negative resistance regime, wherein the current decreases as the voltage increases.  Nagumo's tunnel diode describes the same behaviour.  The point is that in the oscillatory regime the system is a relaxation oscillator, and that it has an excitable regime.
 
-In this system, $f(v)$ can be any function which retains the appropriate dynamics, in that it has the same general shape as the cubic $f(v)$.  In our analog implementation, we use a piecewise linear approximation to the cubic, in order to simplify the circuit and avoid using expensive components.
+In this system, $f(v)$ can be any function which retains the appropriate dynamics, in that it has the same general shape as the cubic $f(v)$.  In our analog implementation, we use a piecewise linear approximation to the cubic, in order to simplify the circuit and avoid using expensive components.  Here, the position of the $w$-nullcline is controlled by $a$, and the vertical translation of the $v$-nullcline is controlled by $I_{ext}$
 
-Xu et al. used a simplified two-variable model consisting of a fast, cubic-like activator variable (see the V-nullcline) and a slow, non-linear inhibitor variable (see the n-nullcline). Both the Morris-Lecar model and the Fitzhugh-Nagumo model have similar activator nullclines.
+Xu et al. used a simplified two-variable model consisting of a fast, cubic-like activator variable (see the V-nullcline) and a slow, non-linear inhibitor variable (see the n-nullcline). BothThe Fitzhugh-Nagumo model has similar activator nullclines.
 
 % TODO: remove Morris-Lecar
 % remark that if the w and v nullclines come near each other, you see a critical slowdown.
@@ -159,7 +159,7 @@ The equations, when modified for synaptic connections, look like this:
     % Show a sample trajectory in each of these.
     % remove the ticklabels
     % condense into single figure
-    % Here, the position of the $w$-nullcline is controlled by $a$, and the vertical translation of the $v$-nullcline is controlled by $I_{ext}$.
+    % .
     \caption{The nullclines of the FitzHugh-Nagumo neuron.  Nullclines are isoclines where the derivative of a variable is zero.  Here we show an oscillatory mode and an excitable one.  In an oscillating cell, the stable equilibrium is replaced by an unstable equilibrium (open circle) around which it circles indefinitely.  See \citet{parsons2018} for a clear explanation of the dynamics of oscillatory biological systems.}
 \end{figure} % TODO: legend
 
@@ -204,7 +204,7 @@ Our modifications to Keener's proposed circuit are mainly concerned with diffusi
     \centering
     \inputtikz{figures/neuron_unit/neuron_unit}
     \caption{The circuit we created, based of \citet{keener1983}.  Note the use of operational amplifiers in place of the inductor and tunnel diode; though this circuit looks more complex, in practice it is quite simple to implement.}
-    \label{fig: nagumo_ckt}
+    \label{fig: neuron_unit}
 \end{figure}
 
 - Nagumo circuit, disadvantages
