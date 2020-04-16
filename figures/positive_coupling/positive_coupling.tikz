@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+
+  \node [neuron] (n0) at (0, 0) {N0};
+
+  \draw (n0.east) to [R, l=100<\kilo\ohm>] (3, 0) coordinate (junction);
+
+  \draw (junction) to [diode] (5, 0) node (n1) [right, neuron] {N1};
+
+\end{tikzpicture}

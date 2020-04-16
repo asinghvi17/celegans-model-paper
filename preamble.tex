@@ -48,6 +48,8 @@
 
 \usepackage{tikz}                     % drawing
 
+\usepackage[siunitx]{circuitikz}      % drawing circuits
+
 \usepackage{pgfplots}                 % plotting
 
 \usepackage{geometry}                 % to set the margins of the page
@@ -176,3 +178,23 @@
 \newcommand{\singlec}[2]{% single diffusion arrows
   \draw [-Latex] (#1.east) -- (#2.west);
   }
+
+% Set the TikZ neuron style up, since it's used many times
+\tikzset{
+  neuron/.style={
+  % The shape:
+  circle,
+  % The size:
+  minimum size=6mm,
+  % The border:
+  very thick,
+  draw=blue!50!black!50,
+  % The filling:
+  top color=white,
+  bottom color=blue!50!black!20, % and something else at the bottom
+  % Font
+  font=\itshape,
+  % padding around node
+  outer sep=2mm
+  }
+}

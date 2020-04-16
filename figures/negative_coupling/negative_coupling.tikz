@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+
+  % \draw (0, 0) node (follower) [op amp] {}
+  %       (follower.-) to
+  %       ++(0, 1) coordinate (follower end o)
+  %       to (follower end o -| follower.out) to (follower.out);
+
+  \node at (0, 0) (n0) [neuron] {N0};
+
+  \node (inverter) [op amp] at ($(n0.east) + (4, 0)$) {};
+
+  \draw (n0.east) to [R, l=100<\kilo\ohm>] (n0.east -| inverter.-) to (inverter.-);
+
+  \draw (inverter.+) to ++(-0.5, 0) node [rotate=0, ground] {};
+
+  \draw (inverter.-)
+        to ++(0, 1) coordinate (inverter end o)
+        to [R, l=10<\kilo\ohm>] (inverter end o -| inverter.out)
+        to (inverter.out)
+        to [D] ++(1, 0)
+        to ++(1, 0) node [neuron] {N1};
+
+\end{tikzpicture}

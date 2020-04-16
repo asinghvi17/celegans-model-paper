@@ -1,21 +1,4 @@
-\begin{tikzpicture}[
-  neuron/.style={
-    % The shape:
-    circle,
-    % The size:
-    minimum size=6mm,
-    % The border:
-    very thick,
-    draw=blue!50!black!50,
-    % The filling:
-    top color=white,
-    bottom color=blue!50!black!20, % and something else at the bottom
-    % Font
-    font=\itshape,
-    % padding around node
-    outer sep=2mm
-  },
-  ]
+\begin{tikzpicture}
 
 
   \node (0d) [neuron, bottom color = red!50!black!20, draw = red!50!black!50] at ($(0, 0)$) {$0_d$};
