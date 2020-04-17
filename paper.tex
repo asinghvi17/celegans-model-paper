@@ -213,9 +213,13 @@ However, this is only one neuron.  In order to implement a full central pattern 
 
 To compare the analog implementation with our simulated model, we will focus on the timeseries output of the neurons, and not on the end worm.  Include the relevant figure here - you can see clearly that the effect is the same.  There are some differences in the waveform because of the different activation function in the circuit (linear interpolation).
 
-% \begin{figure}
-%
-% \end{figure}
+\begin{figure}[h!]
+    \centering
+    \pgfplotsset{}
+    \inputtikz{figures/anal_sim_comp/anal_sim_comp}
+    \caption{Comparison between simulated dynamics (top row) and observed dynamics in circuit (bottom row).}
+    \label{fig: anal_sim_comp}
+\end{figure}
 
 \section{Conclusion}
 
