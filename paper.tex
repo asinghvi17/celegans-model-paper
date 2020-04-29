@@ -66,9 +66,11 @@ The purpose of this paper to describe a minimal reaction-diffusion model for the
 
 In addition to simulating the CPG, we also implemented a modified version of the FitzHugh-Nagumo neuron, originally proposed by \citet{keener1983}, as an analog circuit.  This circuit solves the Keener differential equations, and we adjusted it to allow diffusive coupling between neurons.  We made a small network with these ``neuro-mimetic'' circuits, and showed that their behaviour replicates FitzHugh-Nagumo simulated behaviour.
 
+% TODO - acknowledge prior work by Izquierdo et al.  May be more biologically relevant.  The role of this paper is to show a very minimal example.  We slightly modified the original FHN.
 \section{The model central pattern generator}
 
 % TODO confirm the Xu reprint policy
+% TODO show how the latest paper describes a small sequence of neurons forming coupled oscillators.
 
 A central pattern generator is a small neural circuit which generates and regulates the movement of complex organisms.  This structure is present in different forms in many animals, and it regulates many types of periodic motion.  \citet{xu2018} proposed an architecture for the CPG of \emph{C. elegans} which is described below in \fref{fig: xu_cpg}.
 
@@ -130,6 +132,8 @@ Xu et al. used a simplified two-variable model consisting of a fast, cubic-like 
     % TODO: change legend to dv/dt=0, dw/dt=0
     % relabel ``real c. elegans'' to C. elegans (experimental data).
     % for publication: remove ticklabels, keep minor grid
+    % Replace the figure with Xu's
+    % note that in the vicinity of the v-nullcline, the w-nullcline is essentially straight.
     \caption{Nullclines of several different neuronal models; on the right is the biological model of Xu et al, in the centre is the Morris-Lecar model, and to the right is the FitzHugh-Nagumo model.  These have been arranged in order of decreasing complexity.}
 \end{figure} % TODO: legend
 
@@ -167,13 +171,13 @@ The equations, when modified for synaptic connections, look like this:
 
 \section{Simulation}
 
-The simulation was performed in Python, using the standard SciPy ODE solvers, which wrap LSODA. % TODO list solver here
+We performed the simulations in Python, using the standard SciPy ODE solvers, which wrap LSODA. % TODO list solver here
 
 \subsection{Methods}
 
 See the appendix, or attached code, for how we simulated this motion.  It should probably also be published on Github - I could make a Jupyter notebook with it.
 
-We realize the network shown in \Fref{fig: cpg} into a system of ODEs, and solve it.  The equations are integrated, giving a timeseries of neuronal potentials.  These are passed through filters to simulate muscular movement and the resistance of the medium.  We used Gaussian smoothing and B-splines for this purpose.
+We realize the network shown in \Fref{fig: cpg} into a system of ODEs, and solve it.  The equations are integrated, giving a timeseries of neuronal potentials.  These were passed through filters to simulate muscular movement and the resistance of the medium.  We used Gaussian smoothing and B-splines for this purpose.
 
 We generated a video by fixing the head of a worm to the origin, and re-normalizing the coordinates resulting from the filtering.
 
@@ -181,7 +185,11 @@ We generated a video by fixing the head of a worm to the origin, and re-normaliz
 
 Cite the paper which Jenny sent here.  It can be seen that our model closely approximates an unconstrained worm, specifically of the wild type.
 
-While the angle which a worm crawling on agar subtends tends to be oblique, as the constraint on the worm decreases, the angle becomes more and more acute - consider the videos . It is not hard to see that a fully unconstrained worm might behave much like our model does.
+While the angle which a worm crawling on agar subtends tends to be oblique, as the constraint on the worm decreases, the angle becomes more and more acute - consider the videos.  It is not hard to see that a fully unconstrained worm might behave much like our model does.
+
+The worm generates sinusoidal oscillations
+
+% Closely related to the first I&B (2008).  Alternate and likely more realistic structure with a distributed CPG was proposed by new Izquierdo.
 
 \section{Analog implementation}
 
@@ -220,6 +228,8 @@ To compare the analog implementation with our simulated model, we will focus on 
     \caption{Comparison between simulated dynamics (top row) and observed dynamics in circuit (bottom row).}
     \label{fig: anal_sim_comp}
 \end{figure}
+
+% TODO: write up a section on the Beer paper and see how it relates to our CPG model.
 
 \section{Conclusion}
 
