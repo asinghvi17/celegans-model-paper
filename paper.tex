@@ -107,9 +107,9 @@ While \textit{C. elegans} has twelve pairs of motor neurons, we have only used s
     \caption{Our simplified central pattern generator model.  Descending coupling (shows inhibitory connections, and potential flows through gap junctions, not necessarily symmetric)}
 \end{figure} % TODO: legend
 
-\section{The FitzHugh-Nagumo Neuron}\label{sec: fhn}
+\section{The FitzHugh-Nagumo Neuronal Model}\label{sec: fhn}
 
-In accord with the goal of this paper, we sought the simplest relevant neuronal model.  The classical Hodgkin-Huxley\cite{hodgkin1952} model of squid neurons has led to a variety of simpler conduction models, including the Morris-Lecar\cite{morris1981} and Fitzhugh-Nagumo models.
+In accord with the goal of this paper, we sought the simplest relevant neuronal model.  The classical Hodgkin-Huxley\cite{hodgkin1952} model of squid neurons has led to a variety of simpler conduction models, including the Morris-Lecar\cite{morris1981} and Fitzhugh-Nagumo (FHN) models.
 
 The FHN model consists of two dynamical variables; a fast activator variable $v$ corresponding to the (rescaled) membrane potential, and a slow inhibitor variable $w$ corresponding to a generalized gating variable.
 
@@ -122,7 +122,6 @@ The FHN model consists of two dynamical variables; a fast activator variable $v$
     \end{aligned}
 \end{equation}
 
-The sodium channel has a negative resistance regime, wherein the current decreases as the voltage increases.  Nagumo's tunnel diode describes the same behaviour.  The necessary feature is that in the oscillatory regime, the system is a relaxation oscillator, and that it has an excitable regime.
 
 In this system, $f(v)$ can be any function which retains the appropriate dynamics, in that it has the same general shape as the cubic $f(v)$.  In our analog implementation, we use a piecewise linear approximation to the cubic, in order to simplify the circuit and avoid using expensive components.  Here, the position of the $w$-nullcline is controlled by $a$, and the vertical translation of the $v$-nullcline is controlled by $I_{ext}$
 
@@ -202,18 +201,20 @@ The worm generates sinusoidal oscillations
 
 \section{Analog implementation}
 
-\citet{nagumo1962} proposed a circuit to simulate a FitzHugh-Nagumo neuron, shown in \Fref{fig: nagumo_ckt}.  It used a tunnel diode to achieve a cubic-like activation function, and an inductor to integrate.  However, this approach presents several complications.  Tunnel diodes are rare, and rather expensive; inductors cannot be used in proximity because of mutual inductance effects, and are quite large.
+\citet{nagumo1962} proposed a circuit to simulate a FitzHugh-Nagumo neuron, shown in \Fref{fig: nagumo_ckt}.  It used a tunnel diode to achieve a cubic-like activation function, and an inductor to differentiate the K current.  However, this approach presents several complications.  Tunnel diodes are rare, and rather expensive; inductors cannot be used in proximity because of mutual inductance effects, and are quite large.
 
 \begin{figure}[h!]
     \centering
     \inputtikz{figures/nagumo/nagumo}
-    \caption{The original circuit proposed by \citet{nagumo1962}.  Note the use of inductors for integration, and the tunnel diode to supply a cubic-like V-I curve.  Our circuit, based off \citet{keener1983}, is arranged in the same layout, to make the similarities and differences more explicit.}
+    \caption{The original circuit proposed by \citet{nagumo1962}.  Note the use of inductors for differentiation, and the tunnel diode to supply a cubic-like V-I curve.  Our circuit, based off \citet{keener1983}, is arranged in the same layout, to make the similarities and differences more explicit.}
     \label{fig: nagumo_ckt}
 \end{figure}
 
-\citet{keener1983} proposed a modified Nagumo circuit which used operational amplifiers ("op-amps") to achieve nonlinearity and create a piecewise linear function.  He used an op-amp under saturation to create a piecewise linear approximation to the cubic, which is sufficient to drive the FHN oscillator.  He also used an op-amp integrator to simulate an inductor.
+The sodium channel has a negative resistance regime, wherein the current decreases as the voltage increases.  Nagumo's tunnel diode describes the same behaviour.  The necessary feature is that in the oscillatory regime, the system is a relaxation oscillator, and that it has an excitable regime.
 
-As a result of the piecewise linear approximation to the cubic, the nullclines of the circuit system differ slightly from the original FitzHugh-Nagumo nullclines.  However, in experiments this did not cause any change in the dynamics of the individual neuron, or many connected together - the nullclines are sufficiently similar that the dynamics are effectively the same.
+\citet{keener1983} proposed a modified Nagumo circuit which used the saturation properties of operational amplifiers ("op-amps") to achieve cubic-like non-linearity in the FHN  model.He also used an op-amp and a capacitor to simulate the inductor in the original Nagumo circuit.
+
+As a result of the piecewise linear approximation to the cubic, the nullclines of the circuit system differ slightly from the original FitzHugh-Nagumo nullclines.  However, in experiments this did not cause a significant change in the dynamics of the individual neuron, or many connected together - the nullclines are sufficiently similar that the dynamics are effectively the same.
 
 Our modifications to Keener's proposed circuit are mainly concerned with diffusive coupling between neurons.  If each individual circuit is thought of as a single neuron, then we implemented diffusive coupling methods between those neurons.  We also found that you don't need separate power supplies, and you can get finer control by adjusting the bias voltage and input through a separate mechanism.
 
