@@ -16,7 +16,7 @@
   \node [above, align=left] at (0, 0) {Membrane\\capacitance}; % TODO improve spacing
 
   \draw (bus 1 upper) to [empty tunnel diode, name = nonlin] (bus 1 lower);
-  \node [align = left, anchor=west] at ($(nonlin.east) + (0.3, 0)$) {Nonlinear\\current\\device};
+  \node [align = left, anchor=west] at ($(nonlin.east) + (0.3, 0)$) {Tunnel\\diode};
 
   \draw [draw=magenta, very thick] (bus 1 upper) -- ++(5, 0) coordinate (bus 2 upper);
   \draw [draw=blue, very thick]    (bus 1 lower) -- ++(5, 0) coordinate (bus 2 lower);
@@ -27,7 +27,7 @@
   to [inductor, a = $L$, name = ind] ($(bus 2 upper)!0.66!(bus 2 lower)$)
   to [battery, name = vs] (bus 2 lower);
 
-  \node [right, align = left] at ($(ind.east) + (0.2, 0.2)$) {Actual\\inductor};
+  \node [right, align = left] at ($(ind.east) + (0.2, 0.2)$) {Inductor};
 
   \node [right, align=right, anchor = west] at (vs.east) {Bias\\voltage};
 

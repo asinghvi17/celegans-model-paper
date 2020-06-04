@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+  % First we draw the positive coupling
+  
+  \node [neuron] (ns0) at (0, 0) {N0};
+
+  \draw (ns0.east) to [R, l=$R$] (2.7, 0) coordinate (junction);
+
+  \draw (junction) to [diode] (4, 0) node (ns1) [right, neuron] {N1};
+  
+  \node at (2, -2) {(a) Positive coupling};
+
+  % Now, we draw the inverted coupling
+  \node at (6, 0) (ni0) [neuron] {N0};
+
+  \node (inverter) [op amp] at ($(ni0.east) + (4, 0)$) {};
+
+  \draw (ni0.east) to [R, l=$R_11$] (ni0.east -| inverter.-) to (inverter.-);
+
+  \draw (inverter.+) to ++(-0.5, 0) node [rotate=0, ground] {};
+
+  \draw (inverter.-)
+        to ++(0, 1) coordinate (inverter end o)
+        to [R, l=$R_2$] (inverter end o -| inverter.out)
+        to (inverter.out)
+        to [D] ++(1, 0)
+        to ++(1, 0) node (ni1) [neuron] {N1};
+        
+    \node at (12, -2) {(b) Negative coupling};
+
+\end{tikzpicture}

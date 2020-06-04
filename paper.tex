@@ -45,7 +45,7 @@
 \date{\today}
 
 \begin{abstract}
-    The small (1 mm) nematode \emph{Caenorhabditis elegans} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (c.f. http://www.wormbook.org \citet{corsi2015}). We describe a minimal reaction-diffusion model for the \emph{C. elegans} which realizes the neuromechanical model of \citet{izquierdo2018}. This  may be considered as a simple model for Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}. \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. In particular, we use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.  Finally, we recreate the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
+    The small (1 mm) nematode \emph{Caenorhabditis elegans} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (c.f. http://www.wormbook.org \citet{corsi2015}). We describe a minimal reaction-diffusion model for the \emph{C. elegans}, which results in similar behaviour to the neuromechanical model of \citet{izquierdo2018}. This  may be considered as a simple model for Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}. \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. In particular, we use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.  Finally, we recreate the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
     % TODO: expand and inflate; fix grammar, cite Olivares2019
 \end{abstract}
 
@@ -55,7 +55,7 @@
 
 
 The small (1 mm) nematode \emph{Caenorhabditis elegans} (\emph{C. elegans}) has become widely used as a model organism \citep{corsi2015}, and has been among the most widely studied biological models of neuronal development, locomotion and the central pattern generator \citep{katz2016}.
-The C. elegans connectome has been completely mapped \citep{jabr} and, as described below, its locomotion has been widely studied (\citet{corsi2015}).  There are a variety of neuronal models which generate the undulation,
+The C. elegans connectome has been completely mapped \citep{jabr} and, as described below, its locomotion has been widely studied (\citet{corsi2015}).  There are a variety of neuronal models which can generate such undulation,
 ``When crawling on a solid surface, the nematode C. elegans moves forward by propagating sinusoidal dorso-ventral retrograde contraction waves.  A uniform propagating wave leads to motion that undulates about a straight line.'' \citep{kim2011}.
 A different type of locomotion, often called swimming, occurs when nematodes are submerged in a liquid medium. The nematodes “switch” between these two gaits, under the regulation of particular serotonergic and dopaminergic neurons.
 
@@ -77,7 +77,7 @@ Olivares et al *** recently created a more biologically relevant model for the C
 
 A central pattern generator is a small neural circuit which generates and regulates the movement of complex organisms.  This structure is present in different forms in many animals, and it regulates many types of periodic motion.  \citet{xu2018} proposed an architecture for the CPG of \emph{C. elegans} which is described below in \fref{fig: xu_cpg}.
 
-In more complex animals, like horses or dogs, there is only one CPG; the dynamics of the CPG change depending on the gait of the animal \citep{collins1994}.  We show later that breaking the symmetry of the CPG model can lead to radical changes in behaviour.
+In more complex animals, like horses or dogs, there is only one CPG; the dynamics of the CPG change depending on the gait of the animal \citep{collins1994}.  The mode of locomotion depends on the sequencec in which the neurons fire, but the network's topology remains the same.  We show later that breaking the symmetry of the CPG model can lead to radical changes in behaviour.
 
 \begin{figure}[h!]
     \label{fig: xu_cpg}
@@ -117,7 +117,7 @@ The FHN model consists of two dynamical variables; a fast activator variable $v$
     \label{eq: fhn}
     \begin{aligned}
         dv &= f(v) + w - I_\mathrm{ext}\\
-        dw &= ϵ(a - bv)\\
+        dw &= \epsilon (a - bv)\\
         f(v) &= \frac{v^3}{3} - v
     \end{aligned}
 \end{equation}
@@ -140,7 +140,7 @@ Xu et al. used a simplified two-variable model consisting of a fast, cubic-like 
     % Replace the figure with Xu's
     % note that in the vicinity of the v-nullcline, the w-nullcline is essentially straight.
     \caption{Nullclines of several different neuronal models; on the right is the biological model of Xu et al, in the centre is the Morris-Lecar model, and to the right is the FitzHugh-Nagumo model.  These have been arranged in order of decreasing complexity.}
-\end{figure} % TODO: legend
+\end{figure}
 
 % TODO: see if anyone else used diffusion to couple neurons
 The original system was meant to model one neuron only.  Following ***, we used
@@ -156,11 +156,13 @@ The equations, when modified for synaptic connections, look like this:
 \begin{equation}
     \label{eq: fhnd}
     \begin{aligned}
-        dv   &= f(v) + w - I_\mathrm{ext} + D(Δv)\\ % highlight D?
+        dv   &= f(v) + w - I_\mathrm{ext} + \color{green}{D(Δv)}\\
         dw   &= ϵ(a - bv)\\
         f(v) &= \frac{v^3}{3} - v
     \end{aligned}
 \end{equation}
+
+where $\Delta v$ is the difference in voltage between the driving and driven neurons, essentially $\Delta v = v_{driven} - v_{driving}$.
 
 \begin{figure}[h!]
     \label{fig: fhn_dynamics}
@@ -210,9 +212,11 @@ The worm generates sinusoidal oscillations
     \label{fig: nagumo_ckt}
 \end{figure}
 
-The sodium channel has a negative resistance regime, wherein the current decreases as the voltage increases.  Nagumo's tunnel diode describes the same behaviour.  The necessary feature is that in the oscillatory regime, the system is a relaxation oscillator, and that it has an excitable regime.
+% The circuit in \Fref{fig: nagumo_ckt} is an analog solver for the FitzHugh-Nagumo equations.  Namely, the 
 
-\citet{keener1983} proposed a modified Nagumo circuit which used the saturation properties of operational amplifiers ("op-amps") to achieve cubic-like non-linearity in the FHN  model.He also used an op-amp and a capacitor to simulate the inductor in the original Nagumo circuit.
+The sodium channel in the FitzHugh-Nagumo equations has a negative resistance regime, wherein the current decreases as the voltage increases.  Nagumo's tunnel diode exhibits this behaviour, but it may be replaced by any device with a similarly nonlinear V-I curve.  The necessary feature is that in the oscillatory regime, the system is a relaxation oscillator, and that it has an excitable regime.
+
+\citet{keener1983} proposed a modified Nagumo circuit which used the saturation properties of operational amplifiers ("op-amps") to achieve cubic-like non-linearity in the FHN model. He also used an op-amp and a capacitor to simulate the inductor in the original Nagumo circuit.
 
 As a result of the piecewise linear approximation to the cubic, the nullclines of the circuit system differ slightly from the original FitzHugh-Nagumo nullclines.  However, in experiments this did not cause a significant change in the dynamics of the individual neuron, or many connected together - the nullclines are sufficiently similar that the dynamics are effectively the same.
 
@@ -226,6 +230,13 @@ Our modifications to Keener's proposed circuit are mainly concerned with diffusi
 \end{figure}
 
 However, this is only one neuron.  In order to implement a full central pattern generator, we implemented diffusive coupling mechanisms.  These mechanisms are shown in \Fref{fig: coupling_ckt}.  We implemented a positive diffusion coefficient by passing the voltage through a resistor (to simulate $D$), and then a diode (to simulate $\mathrm{max}(\Delta v, 0)$).  The negative diffusion coefficient was implemented by using an inverting amplifier with a small gain, and then passing through a diode.
+\newsavebox{\tempbox}
+\begin{figure}
+    \centering
+    \inputtikz{figures/coupling/coupling}
+    \caption{Coupling methods}
+    \label{fig: coupling}
+\end{figure}
 
 \subsection{Comparison of analog and simulation}
 
@@ -247,6 +258,12 @@ To compare the analog implementation with our simulated model, we will focus on 
 
 Mention the bullet points from the presentation.  How could a system like this be used in applications?  End with some future paths.
 
+We have shown that the undulatory motion of \emph{C. elegans} can be simulated using a structured central pattern generator, and simple, biomimetic neurons.  This system is computationally cheap, and translates to a simple analog circuit.  
+
+Our model of the nematode is surprisingly similar to real unconstrained motion.
+
+
+% Can we use this to explore how mutations effect motion, and mechanisms behind differences in phenotypes.
 % The particular model doesn't really matter; if you have the right topology, you can generate the behaviour.
 % Reservoir computing and our neurons.  Speculate that different circuits of FHN neurons might be suitable dynamical reservoirs.  However, a CPG has a range of comparatively simple dynamics.
 % cite Sanchez-Sinencio, Spano on circuits.  Theirs emphasize accuracy whereas ours emphasizes speed and minimal cost.
