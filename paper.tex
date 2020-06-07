@@ -53,7 +53,6 @@
 
 \section{Introduction}\label{sec: intro}
 
-
 The small (1 mm) nematode \emph{Caenorhabditis elegans} (\emph{C. elegans}) has become widely used as a model organism \citep{corsi2015}, and has been among the most widely studied biological models of neuronal development, locomotion and the central pattern generator \citep{katz2016}.
 The C. elegans connectome has been completely mapped \citep{jabr} and, as described below, its locomotion has been widely studied (\citet{corsi2015}).  There are a variety of neuronal models which can generate such undulation,
 ``When crawling on a solid surface, the nematode C. elegans moves forward by propagating sinusoidal dorso-ventral retrograde contraction waves.  A uniform propagating wave leads to motion that undulates about a straight line.'' \citep{kim2011}.
@@ -72,7 +71,6 @@ Olivares et al *** recently created a more biologically relevant model for the C
 
 \section{The model central pattern generator}
 
-% TODO confirm the Xu reprint policy
 % TODO show how the latest paper describes a small sequence of neurons forming coupled oscillators.
 
 A central pattern generator is a small neural circuit which generates and regulates the movement of complex organisms.  This structure is present in different forms in many animals, and it regulates many types of periodic motion.  \citet{xu2018} proposed an architecture for the CPG of \emph{C. elegans} which is described below in \fref{fig: xu_cpg}.
@@ -133,11 +131,7 @@ Xu et al. used a simplified two-variable model consisting of a fast, cubic-like 
 \begin{figure}[h!]
     \label{fig: nm nullclines}
     \centering
-    \inputtikz{figures/neuron_dynamics/neuron_dynamics}
-    % TODO: change legend to dv/dt=0, dw/dt=0
-    % relabel ``real c. elegans'' to C. elegans (experimental data).
-    % for publication: remove ticklabels, keep minor grid
-    % Replace the figure with Xu's
+    \includegraphics{figures/neuron_dynamics/neuron_dynamics.pdf}
     % note that in the vicinity of the v-nullcline, the w-nullcline is essentially straight.
     \caption{Nullclines of several different neuronal models; on the right is the biological model of Xu et al, in the centre is the Morris-Lecar model, and to the right is the FitzHugh-Nagumo model.  These have been arranged in order of decreasing complexity.}
 \end{figure}
@@ -168,11 +162,6 @@ where $\Delta v$ is the difference in voltage between the driving and driven neu
     \label{fig: fhn_dynamics}
     \centering
     \includegraphics{figures/fhn_dynamics/fhn_dynamics.pdf}
-    % TODO describe this more.
-    % Show a sample trajectory in each of these.
-    % remove the ticklabels
-    % condense into single figure
-    % .
     \caption{The nullclines of the FitzHugh-Nagumo neuron.  Nullclines are isoclines where the derivative of a variable is zero.  Here we show an oscillatory mode and an excitable one.  In an oscillating cell, the stable equilibrium is replaced by an unstable equilibrium (open circle) around which it circles indefinitely.  See \citet{parsons2018} for a clear explanation of the dynamics of oscillatory biological systems.}
 \end{figure} % TODO: legend
 
