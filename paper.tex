@@ -75,13 +75,13 @@ Olivares et al *** recently created a more biologically relevant model for the C
 
 A central pattern generator is a small neural circuit which generates and regulates the movement of complex organisms.  This structure is present in different forms in many animals, and it regulates many types of periodic motion.  \citet{xu2018} proposed an architecture for the CPG of \emph{C. elegans} which is described below in \fref{fig: xu_cpg}.
 
-In more complex animals, like horses or dogs, there is only one CPG; the dynamics of the CPG change depending on the gait of the animal \citep{collins1994}.  The mode of locomotion depends on the sequencec in which the neurons fire, but the network's topology remains the same.  We show later that breaking the symmetry of the CPG model can lead to radical changes in behaviour.
+In more complex animals, like horses or dogs, there is only one CPG; the dynamics of the CPG change depending on the gait of the animal \citep{collins1994}.  The mode of locomotion depends on the sequence in which the neurons fire, but the network's topology remains the same.  We show later that breaking the symmetry of the CPG model can lead to radical changes in behaviour.
 
 \begin{figure}[h!]
     \label{fig: xu_cpg}
     \centering
     \includegraphics[width=9cm]{figures/xu_cpg/xu_cpg.png}
-    \caption{Pirated from Xu.}
+    \caption{The central pattern generator proposed by \citet{xu2018}.  Note the structure of the neurons, especially the head oscillator driving the descending pathway.}
 \end{figure}
 
 The central pattern generator has two principal components.  First is the \textbf{head oscillator}. As described by \citet{gjorgjieva2014}, the head oscillator consists of two “head neurons” with mutually inhibitory coupling.  Oscillations are generated when this coupling destabilizes an excitable steady state.
@@ -111,7 +111,7 @@ In accord with the goal of this paper, we sought the simplest relevant neuronal 
 
 The FHN model consists of two dynamical variables; a fast activator variable $v$ corresponding to the (rescaled) membrane potential, and a slow inhibitor variable $w$ corresponding to a generalized gating variable.
 
-\begin{equation} % reference HH model here as well
+\begin{equation}
     \label{eq: fhn}
     \begin{aligned}
         dv &= f(v) + w - I_\mathrm{ext}\\
@@ -120,6 +120,7 @@ The FHN model consists of two dynamical variables; a fast activator variable $v$
     \end{aligned}
 \end{equation}
 
+The parameter $I_\mathrm{ext}$ is an external driving current, and can also be used to increase excitability.  In the analog implementation, this is an integral component of tuning the neuron's frequency response.
 
 In this system, $f(v)$ can be any function which retains the appropriate dynamics, in that it has the same general shape as the cubic $f(v)$.  In our analog implementation, we use a piecewise linear approximation to the cubic, in order to simplify the circuit and avoid using expensive components.  Here, the position of the $w$-nullcline is controlled by $a$, and the vertical translation of the $v$-nullcline is controlled by $I_{ext}$
 
@@ -201,7 +202,7 @@ The worm generates sinusoidal oscillations
     \label{fig: nagumo_ckt}
 \end{figure}
 
-% The circuit in \Fref{fig: nagumo_ckt} is an analog solver for the FitzHugh-Nagumo equations.  Namely, the 
+% The circuit in \Fref{fig: nagumo_ckt} is an analog solver for the FitzHugh-Nagumo equations.  Namely, the
 
 The sodium channel in the FitzHugh-Nagumo equations has a negative resistance regime, wherein the current decreases as the voltage increases.  Nagumo's tunnel diode exhibits this behaviour, but it may be replaced by any device with a similarly nonlinear V-I curve.  The necessary feature is that in the oscillatory regime, the system is a relaxation oscillator, and that it has an excitable regime.
 
@@ -234,7 +235,8 @@ To compare the analog implementation with our simulated model, we will focus on 
 \begin{figure}[h!]
     \centering
     \pgfplotsset{}
-    \inputtikz{figures/anal_sim_comp/anal_sim_comp}
+    % \inputtikz{figures/anal_sim_comp/anal_sim_comp}
+    \includegraphics{figures/anal_sim_comp/anal_sim_comp}
     \caption{Comparison between simulated dynamics (top row) and observed dynamics in circuit (bottom row).}
     \label{fig: anal_sim_comp}
 \end{figure}
@@ -247,12 +249,12 @@ To compare the analog implementation with our simulated model, we will focus on 
 
 Mention the bullet points from the presentation.  How could a system like this be used in applications?  End with some future paths.
 
-We have shown that the undulatory motion of \emph{C. elegans} can be simulated using a structured central pattern generator, and simple, biomimetic neurons.  This system is computationally cheap, and translates to a simple analog circuit.  
+We have shown that the undulatory motion of \emph{C. elegans} can be simulated using a structured central pattern generator, and simple, biomimetic neurons.  This system is computationally cheap, and translates to a simple analog circuit.
 
-Our model of the nematode is surprisingly similar to real unconstrained motion.
+Our model of the nematode is surprisingly similar to real unconstrained motion.  While most measurements of \emph{C. elegans} are taken on horizontal agar sheets, observations made in clear, water-filled cuvettes where the worm floats freely seem to resemble our simulated worm more.
 
+Given the flexibility of the model, by introducing defects and asymmetries into the topology, we can study how mutations affect the nematode's motion, as well as the structures underlying differences in phenotypes.
 
-% Can we use this to explore how mutations effect motion, and mechanisms behind differences in phenotypes.
 % The particular model doesn't really matter; if you have the right topology, you can generate the behaviour.
 % Reservoir computing and our neurons.  Speculate that different circuits of FHN neurons might be suitable dynamical reservoirs.  However, a CPG has a range of comparatively simple dynamics.
 % cite Sanchez-Sinencio, Spano on circuits.  Theirs emphasize accuracy whereas ours emphasizes speed and minimal cost.
