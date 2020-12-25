@@ -45,8 +45,14 @@
 \date{\today}
 
 \begin{abstract}
-    The small (1 mm) nematode \emph{Caenorhabditis elegans} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (c.f. http://www.wormbook.org \citet{corsi2015}). We describe a minimal reaction-diffusion model for the \emph{C. elegans}, which results in similar behaviour to the neuromechanical model of \citet{izquierdo2018}. This  may be considered as a simple model for Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}. \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. In particular, we use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.  Finally, we recreate the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
-    % TODO: expand and inflate; fix grammar, cite Olivares2019
+% Note: this is project https://www.overleaf.com/project/5e984f87a777200001dcff7e
+
+
+    The small (1 mm) nematode \emph{Caenorhabditis elegans} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (c.f. http://www.wormbook.org \citet{corsi2015}) *** also other ref ***. We describe a minimal reaction-diffusion model for the \emph{C. elegans}, which results in similar behaviour to the neuromechanical model of \citet{izquierdo2018}. This  may be considered as a simple model for Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}. \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. In particular, we use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.  Finally, we recreate the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
+    \citet{olivares2018potential}
+    \citet{olivares2019}
+    % TODO: expand and inflate; fix grammar, cite Olivares2019, \citet @article{olivares2018potential}
+
 \end{abstract}
 
 \maketitle
@@ -124,7 +130,7 @@ The parameter $I_\mathrm{ext}$ is an external driving current, and can also be u
 
 In this system, $f(v)$ can be any function which retains the appropriate dynamics, in that it has the same general shape as the cubic $f(v)$.  In our analog implementation, we use a piecewise linear approximation to the cubic, in order to simplify the circuit and avoid using expensive components.  Here, the position of the $w$-nullcline is controlled by $a$, and the vertical translation of the $v$-nullcline is controlled by $I_{ext}$
 
-Xu et al. used a simplified two-variable model consisting of a fast, cubic-like activator variable (see the V-nullcline) and a slow, non-linear inhibitor variable (see the n-nullcline). The Fitzhugh-Nagumo model has similar activator nullclines.
+Xu et al. described a simplified two-variable model consisting of a fast, cubic-like activator variable (see the V-nullcline) and a slow, non-linear inhibitor variable (see the n-nullcline). The Fitzhugh-Nagumo model has similar activator nullclines.
 
 % TODO: remove Morris-Lecar
 % remark that if the w and v nullclines come near each other, you see a critical slowdown.
