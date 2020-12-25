@@ -50,6 +50,8 @@
 
 \usepackage{subfig}
 
+\usepackage{caption}
+
 %==============================================================================%
 %                             Set package options                              %
 %==============================================================================%
@@ -135,6 +137,14 @@
   a4paper,
   margin = 1.2in
 }
+
+%============================%
+%          Captions          %
+%============================%
+
+% Mark continued floats as a, b, ...
+\renewcommand\theContinuedFloat{\alph{ContinuedFloat}}
+
 
 %==============================================================================%
 %                         Macros and document options                          %
