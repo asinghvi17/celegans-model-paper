@@ -55,7 +55,7 @@
 
 \section{Introduction}\label{sec: intro}
 
-The small (1 mm) nematode \emph{Caenorhabditis elegans} (\emph{C. elegans}) has become widely used as a model organism \citep{corsi2015}, and has been among the most widely studied biological models of neuronal development, locomotion and the central pattern generator \citep{katz2016}.
+The small (1 mm) nematode \emph{Caenorhabditis elegans} (\emph{C. elegans}) has become widely used as a model organism (cf. http://www.wormbook.org \cite{corsi2015}), and has been among the most widely studied biological models of neuronal development and locomotion \citep{katz2016, corsi2015}.
 The C. elegans connectome has been completely mapped \citep{jabr} and, as described below, its locomotion has been widely studied (\citet{corsi2015}).  There are a variety of neuronal models which can generate such undulation,
 ``When crawling on a solid surface, the nematode C. elegans moves forward by propagating sinusoidal dorso-ventral retrograde contraction waves.  A uniform propagating wave leads to motion that undulates about a straight line.'' \citep{kim2011}.
 A different type of locomotion, often called swimming, occurs when nematodes are submerged in a liquid medium. The nematodes “switch” between these two gaits, under the regulation of particular serotonergic and dopaminergic neurons.
@@ -65,9 +65,9 @@ A different type of locomotion, often called swimming, occurs when nematodes are
 % - italicise C. elegans
 The purpose of this paper is to describe a minimal, biomimetic, reaction-diffusion model for the \emph{C. elegans} central pattern generator (CPG) \citep{xu2018, wen2012}.  We use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) based on a skeleton model of the C. elegans CPG can reproduce key features of C. elegans undulation \citep{magnes2012} and thus locomotion.
 
-In addition to simulating the CPG, we also implemented a modified version of the FitzHugh-Nagumo neuron, originally proposed by \citet{keener1983}, as an analog circuit.  This circuit solves the Keener differential equations, and we adjusted it to allow diffusive coupling between neurons.  We made a small network with these ``neuro-mimetic'' circuits, and showed that their behaviour replicates FitzHugh-Nagumo simulated behaviour.
+Finally, we describe an analog electronic implementation of our model through solving a modified version of the FitzHugh-Nagumo neuron \cite{fitzhugh1955}, based upon an analog circuit originally proposed by \citet{keener1983}.  This circuit solves the Keener differential equations, and we adjusted it to allow diffusive coupling between neurons.  We made a small network with these ``neuro-mimetic'' circuits, and showed that their behaviour replicates FitzHugh-Nagumo simulated behaviour.
 
-There are many other models for the CPG; for example, a 2019 preprint by \cite{olivares2019} proposes a distributed network of oscillating systems, instead of a structured chain like our proposed CPG.  The point of this paper is to create a minimal working model, though, and not to strive for full realism.
+There are many other models for the CPG; for example, a 2019 preprint by \cite{olivares2019} proposes a distributed network of self-oscillating systems of neurons, instead of a structured chain like our proposed CPG.  The point of this paper is to create a minimal working model, though, and not to strive for full realism.
 
 \citet{olivares2019} recently created a more biologically relevant model for the CPG, which argues that the CPG is a network of connected, self-oscillating systems.  The role of this paper is to show a very minimal model, and our approach has been to create a small and computationally cheap model.
 
