@@ -34,6 +34,8 @@
 
 \author[2]{Miranda Hulsey-Vincent}
 
+\author[2]{Susannah Zhang}
+
 \author[1]{Rifah Tasnim}
 
 \author[1]{Naol Negassa}
@@ -60,9 +62,6 @@ The C. elegans connectome has been completely mapped \citep{jabr} and, as descri
 ``When crawling on a solid surface, the nematode C. elegans moves forward by propagating sinusoidal dorso-ventral retrograde contraction waves.  A uniform propagating wave leads to motion that undulates about a straight line.'' \citep{kim2011}.
 A different type of locomotion, often called swimming, occurs when nematodes are submerged in a liquid medium. The nematodes “switch” between these two gaits, under the regulation of particular serotonergic and dopaminergic neurons.
 
-% TODO:
-% - decide whether to cite CPG
-% - italicise C. elegans
 The purpose of this paper is to describe a minimal, biomimetic, reaction-diffusion model for the \emph{C. elegans} central pattern generator (CPG) \citep{xu2018, wen2012}.  We use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) based on a skeleton model of the C. elegans CPG can reproduce key features of C. elegans undulation \citep{magnes2012} and thus locomotion.
 
 Finally, we describe an analog electronic implementation of our model through solving a modified version of the FitzHugh-Nagumo neuron \cite{fitzhugh1955}, based upon an analog circuit originally proposed by \citet{keener1983}.  This circuit solves the Keener differential equations, and we adjusted it to allow diffusive coupling between neurons.  We made a small network with these ``neuro-mimetic'' circuits, and showed that their behaviour replicates FitzHugh-Nagumo simulated behaviour.
@@ -80,10 +79,10 @@ A central pattern generator is a small neural circuit which generates and regula
 In more complex animals, like horses or dogs, there is only one CPG; the dynamics of the CPG change depending on the gait of the animal \citep{collins1994}.  The mode of locomotion depends on the sequence in which the neurons fire, but the network's topology remains the same.  We show later that breaking the symmetry of the CPG model can lead to radical changes in behaviour.
 
 \begin{figure}[h!]
-    \label{fig: xu_cpg}
     \centering
     \includegraphics[width=9cm]{figures/xu_cpg/xu_cpg.png}
     \caption{The central pattern generator proposed by \citet{xu2018}.  Note the structure of the neurons, especially the head oscillator driving the descending pathway.}
+    \label{fig: xu_cpg}
 \end{figure}
 
 The central pattern generator has two principal components.  First is the \textbf{head oscillator}. As described by \citet{gjorgjieva2014}, the head oscillator consists of two “head neurons” with mutually inhibitory coupling.  Oscillations are generated when this coupling destabilizes an excitable steady state.
@@ -99,8 +98,8 @@ While \textit{C. elegans} has twelve pairs of motor neurons, we have only used s
     \ContinuedFloat
     \centering
     \inputtikz{figures/cpg/cpg}
-    \label{fig: cpg}
     \caption{Our simplified central pattern generator model.  Descending coupling (shows inhibitory connections, and potential flows through gap junctions, not necessarily symmetric)}
+    \label{fig: cpg}
 \end{figure} % TODO: legend
 
 \section{The FitzHugh-Nagumo Neuronal Model}\label{sec: fhn}
@@ -170,6 +169,8 @@ where $\Delta v$ is the difference in voltage between the driving and driven neu
 
 We performed the simulations in Python, using the standard SciPy ODE solvers, which wrap LSODA. % TODO list solver here
 
+Essentially, the way the code works is that the main function calculates the left-hand side of the system of differential equations which is materialized from our CPG connectome, when given the state and a set of unchanging parameters.  This is then run through an ODE solver which solves the trajectory of the system given some initial conditions (for example, if the neuron does not initially fire, for example, the system may remain in a steady state and not oscillate).
+
 \subsection{Methods}
 
 See the appendix, or attached code, for how we simulated this motion.  It will be published on Github with embedded plots, so people can see it.
@@ -181,14 +182,14 @@ We generated a video by fixing the head of a worm to the origin, and re-normaliz
 
 \subsection{Generating undulation from neuron potential}
 
-The CPG network which we created is of the same form as the 2-D musculature of our simulated worm.  Each neuron is attached to a muscle; when it fires, it causes the attached muscle to contract.​  We model the muscles as leaky integrators of the neuron's voltage; therefore, Gaussian smoothing of the neuron's voltage works to ``create'' an effective muscle contraction signal.  Through Gaussian smoothing, the movement is heavily dependent on the current state of the neuron but also dependent somewhat on the history. ​
+The CPG network which we created is of the same form as the 2-D musculature of our simulated worm.  Each neuron is attached to a muscle; when it fires, it causes the attached muscle to contract.  We model the muscles as leaky integrators of the neuron's voltage; therefore, Gaussian smoothing of the neuron's voltage works to ``create'' an effective muscle contraction signal.  Through Gaussian smoothing, the movement is heavily dependent on the current state of the neuron but also dependent somewhat on the history. 
 
-Much like \citet{izquierdo2018} did, we take a segment-based approach to the worm model.  Pairs of muscles on either side determine the overall angular displacement per segment.​  The magnitude of the “contraction” resulting from the smoothing is interpreted as an angular displacement for that segment.​  We use a cubic spline interpolation to smoothen the worm body.
+Much like \citet{izquierdo2018} did, we take a segment-based approach to the worm model.  Pairs of muscles on either side determine the overall angular displacement per segment.  The magnitude of the “contraction” resulting from the smoothing is interpreted as an angular displacement for that segment.  We use a cubic spline interpolation to smoothen the worm body.
 
-Each neuron is assumed to be connected to a muscle; when it fires, it should cause that muscle to contract.​
-Pairs of neurons on either side determine the overall angular displacement per segment.​
-Gaussian smoothing and a cubic spline are used to mimic muscle movement and medium resistance.​
-The magnitude of the “contraction” resulting from the smoothing is interpreted as an angular displacement for that segment.​
+Each neuron is assumed to be connected to a muscle; when it fires, it should cause that muscle to contract.
+Pairs of neurons on either side determine the overall angular displacement per segment.
+Gaussian smoothing and a cubic spline are used to mimic muscle movement and medium resistance.
+The magnitude of the “contraction” resulting from the smoothing is interpreted as an angular displacement for that segment.
 
 In this model, muscles can be seen as “leaky integrators” (Boyle et al. 2012) – the movement is heavily dependent on the current state of the neuron but is also dependent somewhat on the history.
 
@@ -213,7 +214,6 @@ The worm undulates in a sinusoidal manner, both in simulation and reality.
     \label{fig: nagumo_ckt}
 \end{figure}
 
-% The circuit in \Fref{fig: nagumo_ckt} is an analog solver for the FitzHugh-Nagumo equations.  Namely, the
 
 The sodium channel in the FitzHugh-Nagumo equations has a negative resistance regime, wherein the current decreases as the voltage increases.  Nagumo's tunnel diode exhibits this behaviour, but it may be replaced by any device with a similarly nonlinear V-I curve.  The necessary feature is that in the oscillatory regime, the system is a relaxation oscillator, and that it has an excitable regime.
 
@@ -230,7 +230,7 @@ Our modifications to Keener's proposed circuit are mainly concerned with diffusi
     \label{fig: neuron_unit}
 \end{figure}
 
-However, this is only one neuron.  In order to implement a full central pattern generator, we implemented diffusive coupling mechanisms.  These mechanisms are shown in \Fref{fig: coupling_ckt}.  We implemented a positive diffusion coefficient by passing the voltage through a resistor (to simulate $D$), and then a diode (to simulate $\mathrm{max}(\Delta v, 0)$).  The negative diffusion coefficient was implemented by using an inverting amplifier with a small gain, and then passing through a diode.
+However, this is only one neuron.  In order to implement a full central pattern generator, we implemented diffusive coupling mechanisms.  These mechanisms are shown in \Fref{fig: coupling}.  We implemented a positive diffusion coefficient by passing the voltage through a resistor (to simulate $D$), and then a diode (to simulate $\mathrm{max}(\Delta v, 0)$).  The negative diffusion coefficient was implemented by using an inverting amplifier with a small gain, and then passing through a diode.
 \newsavebox{\tempbox}
 \begin{figure}
     \centering
