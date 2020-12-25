@@ -182,7 +182,7 @@ We generated a video by fixing the head of a worm to the origin, and re-normaliz
 
 \subsection{Generating undulation from neuron potential}
 
-The CPG network which we created is of the same form as the 2-D musculature of our simulated worm.  Each neuron is attached to a muscle; when it fires, it causes the attached muscle to contract.  We model the muscles as leaky integrators of the neuron's voltage; therefore, Gaussian smoothing of the neuron's voltage works to ``create'' an effective muscle contraction signal.  Through Gaussian smoothing, the movement is heavily dependent on the current state of the neuron but also dependent somewhat on the history. 
+The CPG network which we created is of the same form as the 2-D musculature of our simulated worm.  Each neuron is attached to a muscle; when it fires, it causes the attached muscle to contract.  We model the muscles as leaky integrators of the neuron's voltage; therefore, Gaussian smoothing of the neuron's voltage works to ``create'' an effective muscle contraction signal.  Through Gaussian smoothing, the movement is heavily dependent on the current state of the neuron but also dependent somewhat on the history.
 
 Much like \citet{izquierdo2018} did, we take a segment-based approach to the worm model.  Pairs of muscles on either side determine the overall angular displacement per segment.  The magnitude of the “contraction” resulting from the smoothing is interpreted as an angular displacement for that segment.  We use a cubic spline interpolation to smoothen the worm body.
 
@@ -200,6 +200,13 @@ Cite the paper which Jenny sent here.  It can be seen that our model closely app
 While the angle which a worm crawling on agar subtends tends to be oblique, as the constraint on the worm decreases, the angle becomes more and more acute - consider the videos.  It is not hard to see that a fully unconstrained worm might behave much like our model does.
 
 The worm undulates in a sinusoidal manner, both in simulation and reality.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[height=13cm]{figures/worm_neuron_dash/worm_neuron_dash.pdf}
+    \caption{TODO}
+    \label{fig: worm_neuron_dash}
+\end{figure}
 
 % Closely related to the first I&B (2008).  Alternate and likely more realistic structure with a distributed CPG was proposed by new Izquierdo.
 
