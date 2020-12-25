@@ -112,17 +112,19 @@ The FHN model consists of two dynamical variables; a fast activator variable $v$
 \begin{equation}
     \label{eq: fhn}
     \begin{aligned}
-        dv &= f(v) + w - I_\mathrm{ext}\\
-        dw &= \epsilon (a - bv)\\
+        \frac{dv}{dt} &= f(v) + w - I_\mathrm{ext}\\
+        \frac{dw}{dt} &= \epsilon (a - bv)\\
         f(v) &= \frac{v^3}{3} - v
     \end{aligned}
 \end{equation}
 
 The parameter $I_\mathrm{ext}$ is an external driving current, and can also be used to increase excitability.  In the analog implementation, this is an integral component of tuning the neuron's frequency response.
 
-In this system, $f(v)$ can be any function which retains the appropriate dynamics, in that it has the same general shape as the cubic $f(v)$.  In our analog implementation, we use a piecewise linear approximation to the cubic, in order to simplify the circuit and avoid using expensive components.  Here, the position of the $w$-nullcline is controlled by $a$, and the vertical translation of the $v$-nullcline is controlled by $I_{ext}$
+In this system, $f(v)$ can be any function which retains the appropriate dynamics, in that it has the same general shape as the cubic $f(v)$.  For example, the cubic-like I-V curve of the tunnel diode used by Nagumo \cite{nagumo1962}, or even the piecewise linear approximation of the Keener circuit \cite{keener1983} which we use, would fit this criterion.
 
-Xu et al. described a simplified two-variable model consisting of a fast, cubic-like activator variable (see the V-nullcline) and a slow, non-linear inhibitor variable (see the n-nullcline). The Fitzhugh-Nagumo model has similar activator nullclines.
+In our analog implementation, we use a piecewise linear approximation to the cubic, the same as the Keener circuit \cite{keener1983}, in order to simplify the circuit and avoid using expensive components.  Here, the position of the $w$-nullcline is controlled by $a$, and the vertical translation of the $v$-nullcline is controlled by $I_{ext}$.
+
+\citet{xu2018} described a simplified two-variable model consisting of a fast, cubic-like activator variable (see the V-nullcline) and a slow, non-linear inhibitor variable (see the n-nullcline). The original Fitzhugh-Nagumo model has similar activator nullclines.
 
 % remark that if the w and v nullclines come near each other, you see a critical slowdown.
 % In Hodgkin-Huxley notation, $n$ is the potassium channel.  In the FHN formulation, this corresponds to the $w$ gate variable.
@@ -131,7 +133,7 @@ Xu et al. described a simplified two-variable model consisting of a fast, cubic-
     \centering
     \includegraphics{figures/neuron_dynamics/neuron_dynamics.pdf}
     % note that in the vicinity of the v-nullcline, the w-nullcline is essentially straight.
-    \caption{Nullclines of several different neuronal models; on the right is the biological model of Xu et al, in the centre is the Morris-Lecar model, and to the right is the FitzHugh-Nagumo model.  These have been arranged in order of decreasing complexity.}
+    \caption{Nullclines of several different neuronal models; on the right is the biological model of Xu et al, and to the right is the FitzHugh-Nagumo model.}
 \end{figure}
 
 % TODO: see if anyone else used diffusion to couple neurons
@@ -148,8 +150,8 @@ The equations, when modified for synaptic connections, look like this:
 \begin{equation}
     \label{eq: fhnd}
     \begin{aligned}
-        dv   &= f(v) + w - I_\mathrm{ext} + \color{green}{D(Δv)}\\
-        dw   &= ϵ(a - bv)\\
+        \frac{dv}{dt}   &= f(v) + w - I_\mathrm{ext} + \color{green}{D(Δv)}\\
+        \frac{dw}{dt}   &= ϵ(a - bv)\\
         f(v) &= \frac{v^3}{3} - v
     \end{aligned}
 \end{equation}
@@ -159,7 +161,7 @@ where $\Delta v$ is the difference in voltage between the driving and driven neu
 \begin{figure}[h!]
     \label{fig: fhn_dynamics}
     \centering
-    \includegraphics[height=5cm]{figures/fhn_dynamics/fhn_dynamics.pdf}
+    \includegraphics[height=8cm]{figures/fhn_dynamics/fhn_dynamics.pdf}
     \caption{The nullclines of the FitzHugh-Nagumo neuron.  Nullclines are isoclines where the derivative of a variable is zero.  Here we show an oscillatory mode and an excitable one.  In an oscillating cell, the stable equilibrium is replaced by an unstable equilibrium (open circle) around which it circles indefinitely.  See \citet{parsons2018} for a clear explanation of the dynamics of oscillatory biological systems.}
 \end{figure} % TODO: legend
 
