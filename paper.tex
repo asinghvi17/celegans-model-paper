@@ -48,8 +48,7 @@
 % Note: this is project https://www.overleaf.com/project/5e984f87a777200001dcff7e
 
 
-    The small (1 mm) nematode \emph{Caenorhabditis elegans} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (c.f. http://www.wormbook.org \citet{corsi2015}) *** also other ref ***. We describe a minimal reaction-diffusion model for the \emph{C. elegans}, which results in similar behaviour to the neuromechanical model of \citet{izquierdo2018}. This  may be considered as a simple model for Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}. \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. In particular, we use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.  Finally, we recreate the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
-    \citet{olivares2018potential}
+    The small (1 mm) nematode \emph{Caenorhabditis elegans} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (c.f. http://www.wormbook.org \citet{corsi2015}). We describe a minimal reaction-diffusion model for the \emph{C. elegans}, which results in similar behaviour to the neuromechanical model of \citet{izquierdo2018}. This  may be considered as a simple model for Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}. \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. In particular, we use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.  Finally, we recreate the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
     \citet{olivares2019}
     % TODO: expand and inflate; fix grammar, cite Olivares2019, \citet @article{olivares2018potential}
 
@@ -73,9 +72,7 @@ In addition to simulating the CPG, we also implemented a modified version of the
 
 There are many other models for the CPG; for example, a 2019 preprint by \cite{olivares2019} proposes a distributed network of oscillating systems, instead of a structured chain like our proposed CPG.  The point of this paper is to create a minimal working model, though, and not to strive for full realism.
 
-% TODO - acknowledge prior work by Izquierdo et al.  May be more biologically relevant.  The role of this paper is to show a very minimal example.  We slightly modified the original FHN.
-
-Olivares et al *** recently created a more biologically relevant model for the CPG, which argues that the CPG is a network of connected oscillators.  The role of this paper is to show a very minimal model, and our approach has been to create a small and computationally cheap model.
+\citet{olivares2019} recently created a more biologically relevant model for the CPG, which argues that the CPG is a network of connected, self-oscillating systems.  The role of this paper is to show a very minimal model, and our approach has been to create a small and computationally cheap model.
 
 \section{The model central pattern generator}
 
@@ -102,9 +99,9 @@ Second is the \textbf{descending pathway}, which consists of pairs of coupled, e
 While \textit{C. elegans} has twelve pairs of motor neurons, we have only used six pairs in our model.  An equivalent result could be obtained with more neurons, by increasing the coefficient of diffusion along the pathway, causing a shorter phase lag between neuron pairs.  \Fref{fig: cpg} is a depiction of our simplified model as a graph, wherein neurons are nodes, and the arrows between them symbolize connections.
 
 \begin{figure}[h!]
-    \label{fig: cpg}
     \centering
     \inputtikz{figures/cpg/cpg}
+    \label{fig: cpg}
     \caption{Our simplified central pattern generator model.  Descending coupling (shows inhibitory connections, and potential flows through gap junctions, not necessarily symmetric)}
 \end{figure} % TODO: legend
 
@@ -255,10 +252,14 @@ To compare the analog implementation with our simulated model, we will focus on 
     \label{fig: anal_sim_comp}
 \end{figure}
 
-\subsection{}
+\subsection{Relevance of \citet{izquierdo2018} to our model}
 % TODO: write up a section on the Beer paper and see how it relates to our CPG model.
 % Perhaps a discussion about the "scientific lineage" of our model, and the Olivares et al model.
 % Paraphrase their description.
+
+The \citet{izquierdo2018} model is based on physical realities, and was generated using an evolutionary modelling process to find the structure of the descending neural network which controls muscular motion.  As a result, the model, while realistic, is complex, and differs from ours in several places.  First, the model is not a simple descending linked chain but a complex graphlike structure with repeating, complex self-oscillatory systems of neurons.
+
+Our goal in modelling \emph{C. elegans} is not to produce a very physically accurate model, but rather to replicate those behaviours which are essential - and only those - to the movement of the nematode.  As such, we have the liberty of producing a simpler and more easily quantifiable model.
 
 \section{Conclusion}
 
