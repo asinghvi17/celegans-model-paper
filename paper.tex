@@ -50,15 +50,15 @@
     % Note: this is project https://www.overleaf.com/project/5e984f87a777200001dcff7e
 
     The small (1 mm) nematode \emph{Caenorhabditis elegans} \cite{corsi2015} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (\citet{corsi2015}). We describe a minimal reaction-diffusion model for the locomotion of \emph{C. elegans}, using as a framework a simplified version of Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}.  Finally, we realize a model of the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
-    We note that \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. In particular, we use simulation methods to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.
+    We note that \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. We use the simpler simulation to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}\label{sec: intro}
 
-The small (1 mm) nematode \emph{Caenorhabditis elegans} (\emph{C. elegans}) has become widely used as a model organism (cf. http://www.wormbook.org \cite{corsi2015}), and has been among the most widely studied biological models of neuronal development and locomotion \citep{katz2016, corsi2015}.
-The C. elegans connectome has been completely mapped \citep{jabr} and, as described below, its locomotion has been widely studied (\citet{corsi2015}).  There are a variety of neuronal models which can generate such undulation,
+The small (1 mm) nematode \emph{Caenorhabditis elegans} (\emph{C. elegans}) has become a widely used model organism (cf. http://www.wormbook.org \cite{corsi2015}), and has been among the most studied biological models of neuronal development and locomotion \citep{katz2016, corsi2015}.
+The \emph{C. elegans} connectome has been completely mapped \citep{jabr} and, as described below, its locomotion has been widely studied (\citet{corsi2015}).  There are a variety of neuronal models which can generate such undulation,
 ``When crawling on a solid surface, the nematode C. elegans moves forward by propagating sinusoidal dorso-ventral retrograde contraction waves.  A uniform propagating wave leads to motion that undulates about a straight line.'' \citep{kim2011}.
 A different type of locomotion, often called swimming, occurs when nematodes are submerged in a liquid medium. The nematodes “switch” between these two gaits, under the regulation of particular serotonergic and dopaminergic neurons.
 
