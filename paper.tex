@@ -49,7 +49,7 @@
 \begin{abstract}
     % Note: this is project https://www.overleaf.com/project/5e984f87a777200001dcff7e
 
-    The small (1 mm) nematode \emph{Caenorhabditis elegans} \cite{corsi2015} has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (\citet{corsi2015}). We describe a minimal reaction-diffusion model for the locomotion of \emph{C. elegans}, using as a framework a simplified version of Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}.  Finally, we realize a model of the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
+    The small (1 mm) nematode \emph{Caenorhabditis elegans} (see wormbook.org) has become widely used as a model organism; in particular the \emph{C. elegans} connectome has been completely mapped, and \emph{C. elegans} locomotion has been widely studied (\citet{corsi2015}). We describe a minimal reaction-diffusion model for the locomotion of \emph{C. elegans}, using as a framework a simplified version of Xu et al.'s "descending pathway" description of the \emph{C. elegans} central pattern generator (CPG) \citet{xu2018,wen2012}.  Finally, we realize a model of the required oscillations and coupling with a network of coupled \citet{keener1983} analog neurons.
     We note that \citet{olivares2019} present a likely more realistic model which relies on small networks of neurons, and presents a distributed model of the CPG. We use the simpler simulation to show that a small network of \citet{fitzhugh1955}-\citet{nagumo1962} neurons (one of the simplest neuronal models) can generate key features of \emph{C. elegans} undulation (see \citet{magnes2012}), and thus locomotion.
 \end{abstract}
 
@@ -66,7 +66,7 @@ The purpose of this paper is to describe a minimal, biomimetic, reaction-diffusi
 
 Finally, we describe an analog electronic implementation of our model through solving a modified version of the FitzHugh-Nagumo neuron \cite{fitzhugh1955}, based upon an analog circuit originally proposed by \citet{keener1983}.  This circuit solves the Keener differential equations, and we adjusted it to allow diffusive coupling between neurons.  We constructed a small network with these ``neuro-mimetic'' circuits, and showed that their behaviour replicates FitzHugh-Nagumo simulated behaviour.
 
-There are many other models for the CPG; for example, a 2019 preprint by \cite{olivares2019} proposes a distributed network of self-oscillating systems of neurons, instead of a structured chain like our proposed CPG.  The point of this paper is to create a minimal working model, though, and not to strive for full realism.  Our CPG model can be interpreted as having a graph-like structure, and it is easy to manipulate the "weights" of the edges (connections between neurons) of this "graph" to study defects or other changes in the CPG in an efficient, reproducible and explainable way.
+There are many other models for the CPG; for example, a 2019 preprint by \cite{olivares2019} proposes a distributed network of self-oscillating systems of neurons, instead of a structured chain like our proposed CPG.  The point of this paper is to create a minimal working model, though, and not to strive for full realism.  Our CPG model can be interpreted as having a graph-like structure, and it is easy to manipulate the "weights" of the edges (connections between neurons) of this "graph" to study defects or other changes in the CPG in an efficient, reproducible and explainable way.  Additionally, the simplicity of the model means that it is easy, given a set of parameters, to investigate and reason about the reason for some behaviour of a worm.  Since conditions in the lab are not exactly controllable, our model allows for the 
 
 \citet{olivares2019} recently created a more biologically relevant model for the CPG, which argues that the CPG is a network of connected, self-oscillating systems.  The role of this paper is to show a very minimal model, and our approach has been to create a small and computationally cheap model.
 
@@ -116,7 +116,7 @@ The FHN model consists of two dynamical variables; a fast activator variable $v$
     \label{eq: fhn}
     \begin{aligned}
         \frac{dv}{dt} &= f(v) + w + I_\mathrm{ext}\\
-        \frac{dw}{dt} &= \varepsilon(v - \gamma w + \alpha )\\
+        \frac{dw}{dt} &= \varepsilon(v - \gamma w + \alpha)\\
         f(v) &= \frac{v^3}{3} - v
     \end{aligned}
 \end{equation}
@@ -148,8 +148,8 @@ This yields the the system of (modified) FitzHugh-Nagumo equations:
 \begin{equation}
     \label{eq: fhnd}
     \begin{aligned}
-        \frac{dv}{dt}   &= f(v) + w  + \color{green}{D(Δv)}\\
-        \frac{dw}{dt}   &= ϵ(a - bv)\\
+        \frac{dv}{dt}   &= f(v) + w  + \color{black}{D(Δv)}\\
+        \frac{dw}{dt}   &= \varepsilon (v - \gamma w + \alpha)\\
         f(v) &= \frac{v^3}{3} - v
     \end{aligned}
 \end{equation}
@@ -167,11 +167,25 @@ where $\Delta v$ is the difference in voltage between the driving and driven neu
 
 \section{Simulation}
 
-We performed the simulations in Python, using the standard SciPy ODE solvers, which wrap LSODA. % TODO list solver here
+% Structure:
+% - Describe the model, how the neurons are interconnected,
+%   as well as how the model in general functions (as 
+%   a function which solves a system of ODEs)
+% - Describe how the code works, in stages:
+%    - Initialize parameters
+%    - Integrate the solution to the system of DEs
+%    - Simulate the muscle response using smoothing
+%    - Construct the worm's shape using splines with the angle approach
+%
+% Basically, say enough that someone could replicate the idea without seeing the code at all.
 
-The main function of the code calculates the left-hand side of Eq. 1 of the system of differential equations which is materialized from our CPG connectome, when given the state and a set of unchanging parameters.  This procedure is followed by the ODE solver which solves the trajectory of the system given some initial conditions; for example, if the neuron does not initially fire, the system may remain in a steady state and not oscillate.
+We performed the simulations in Python, using the standard SciPy ODE solvers, which wrap LSODA, the Livermore Solver for Ordinary Differential Equations. % TODO list solver here
 
-\subsection{Methods}
+The main function of the code solves the FitzHugh-Nagumo equations of \Fref{eq: fhnd}, having one set of such equations per neuron, which is materialized from our CPG connectome, when given the state and a set of unchanging parameters.  This procedure is followed by the ODE solver which solves the trajectory of the system given some initial conditions; for example, if the neuron does not initially fire, the system may remain in a steady state and not oscillate.
+
+\subsection{Overview of the methods}
+
+We are outlining the code here, but the full code can be found at *** add clean github link here ***.
 
 See the appendix, or attached code, for how we simulated this motion.  It will be published on Github with embedded plots, so people can see it.
 
@@ -180,7 +194,13 @@ We construct the network shown in \Fref{fig: cpg} with a system of ODEs, and sol
 
 We generated a video by fixing the head of a worm to the origin, and re-normalizing the coordinates resulting from the filtering.
 
-\subsection{Generating undulation from neuron potential}
+\subsection{Initializing the model's parameters}
+
+% Mention that the FHN eqns are nondimensional and so all quantities have dimension but not units, i.e., arbitrary scaling.
+
+\subsection{Integrating the solution to the system of differential equations}
+
+\subsection{Simulating the worm's muscular response}
 
 The CPG network which we created is of the same form as the 2-D musculature of our simulated worm.  Each neuron is attached to a muscle; when it fires, it causes the attached muscle to contract.  We model the muscles as leaky integrators of the neuron's voltage. In this model, muscles can be seen as “leaky integrators” (Boyle et al. 2012) – the movement is heavily dependent on the current state of the neuron but is also dependent somewhat on the history. As a result, Gaussian smoothing of the neuron's voltage works to ``create'' an effective muscle contraction signal.  Through Gaussian smoothing, the movement is heavily dependent on the current state of the neuron but also dependent somewhat on the history.
 
@@ -191,7 +211,7 @@ Pairs of neurons on either side determine the overall angular displacement per s
 Gaussian smoothing and a cubic spline are used to mimic muscle movement and medium resistance.
 The magnitude of the “contraction” resulting from the smoothing is interpreted as an angular displacement for that segment.
 
-
+\subsection{Constructing the worm's movement}
 
 % TODO:
 % - discuss dynamics of omega turn (central muscles contract in one direction,
@@ -258,7 +278,7 @@ To compare the analog implementation with our simulated model, we will focus on 
     \pgfplotsset{}
     % \inputtikz{figures/anal_sim_comp/anal_sim_comp}
     \includegraphics[height=9cm]{figures/anal_sim_comp/anal_sim_comp.pdf}
-    \caption{Comparison between computationally simulated dynamics (top row) and observed dynamics in the analog circuit (bottom row).  (a) is the nullcline for the FitzHugh-Nagumo (simulated) equations, (b) is the "head oscillator" simulated (two neurons which mutually inhibit each other), (c) is the "descending pathway" simulated (one neuron driving another).  (d) is the nullcline for the analog circuit - a piecewise linear approximation to the cubic, (e) is the analog version of the head oscillator, and (f) is the analog version of the descending pathway.}
+    \caption{Comparison between computationally simulated dynamics (top row) and observed dynamics in the analog circuit (bottom row).  (a) is the nullcline for the FitzHugh-Nagumo (simulated) equations, with the straight line being the $w$-nullcline and the cubic-like line being the $v$-nullcline; (b) is the "head oscillator" simulated (two neurons which mutually inhibit each other); (c) is the "descending pathway" simulated (one neuron driving another).  (d) is the nullcline for the analog circuit - a piecewise linear approximation to the cubic, (e) is the analog version of the head oscillator, and (f) is the analog version of the descending pathway.}
     \label{fig: anal_sim_comp}
 \end{figure}
 
