@@ -219,7 +219,14 @@ The function we have written is structured such that the parameters and state ar
 
 The CPG network which we created is of the same form as the 2-D musculature of our simulated worm.  Each neuron is attached to a muscle; when it fires, it causes the attached muscle to contract.  We model the muscles as leaky integrators of the neuron's voltage. In this model, muscles can be seen as “leaky integrators” (Boyle et al. 2012) – the movement is heavily dependent on the current state of the neuron but is also dependent somewhat on the history. As a result, Gaussian smoothing of the neuron's voltage works to ``create'' an effective muscle contraction signal.  Through Gaussian smoothing, the movement is heavily dependent on the current state of the neuron but also dependent somewhat on the history.
 
-Essentially, the process is that
+Essentially, the process is that the signal is constructed using the following formula:
+
+\begin{equation}
+    \label{eq: unfiltered_signal}
+    S_\mathrm{unfiltered} = \frac{(v_i(t) + |v_i(t)|) - (d_i(t) - |d_i(t)|)}{2}
+\end{equation}
+
+Then, the unfiltered signal is run through a Gaussian filter to create a ``filtered'' signal.  In the code, this is also called the effective signal.
 
 
 \subsection{Constructing the worm's movement}

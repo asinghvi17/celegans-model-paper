@@ -40,13 +40,13 @@
 
   \draw (u2.+) to ++(-.5, 0) coordinate (u2 + end);
 
-  \draw (u2 + end) to [capacitor, a=0.47<\micro\farad>, l = $C_2$] (u2 + end |- bus 2 upper);
+  \draw (u2 + end) to [resistor, l=10<\kilo\ohm>, a = $R_4$] (u2 + end |- bus 2 upper);
 
   \draw (u2.-) to ++(0, -.5) coordinate (tmp1) to (tmp1 -| u2 out end) to (u2 out end);
 
   \coordinate (tmp5) at (u2 + end -| bus 2 lower);
 
-  \draw (u2 + end) to [resistor, l=10<\kilo\ohm>, a = $R_4$] ++(0, -3) to [battery, name = vs] (u2 + end |- bus 2 lower);
+  \draw (u2 + end) to [capacitor, a=0.47<\micro\farad>, l = $C_2$] ++(0, -3) to [battery, name = vs] (u2 + end |- bus 2 lower);
 
   \draw [ultra thick, draw=white] (u2 + end |- bus 2 lower) -- (bus 2 lower);
 
